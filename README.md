@@ -8,7 +8,7 @@ Esta aplicación ofrece a un entrenador personal gestionar los entrenamientos, d
 Tambien contiene los endspoints para el panel de administración donde el administrador puede editar las suscripciones de los usuarios, subir y editar información de los videos, editar el entrenamiento o dieta de los usuarios, crear categorías de videos...
 
 
-Para lanzar el servidor se necesita crear una cuenta en Cloudflare y en Cloudfinary y dar los tokens en las variables de entorno.
+Para lanzar el servidor se necesita crear una cuenta en Cloudflare y en Cloudinary y dar los tokens en las variables de entorno.
 
 Para desarrollo usar npm run dev, se usa esbuild en vez de tsc para desarrollo por que compila 100x mas rápido que tsc
 ```
