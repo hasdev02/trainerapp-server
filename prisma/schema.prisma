@@ -1,0 +1,96 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "mysql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model User {
+    id  Int @id @default(autoincrement())
+    email   String  @unique
+    fullName    String
+    password    String
+    role    Role     @default(USER)
+    subscription Subscription @default(INACTIVE)
+    subscriptionEnd DateTime @default(dbgenerated("(NOW() + INTERVAL 1 YEAR)"))
+    train Json
+    sessions Session[]
+    diet Diet?
+    dietPdf Bytes?
+}
+
+model Session {
+  id  Int @id @default(autoincrement())
+  token String
+  creationDate DateTime @default(now())
+  lastUse DateTime @default(now())
+
+
+  //Device data
+  os String?
+  browser String?
+  deviceVendor String?
+  deviceModel String?
+  deviceType String?
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model Diet {
+  id  Int @id @default(autoincrement())
+  monday Json
+  tuesday Json
+  wednesday Json
+  thursday Json
+  friday Json
+  saturday Json
+  sunday Json
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int @unique
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Subscription {
+  INACTIVE
+  STANDARD
+  ENTRENAMIENTO
+  DIETA
+  FULL
+}
+
+
+model Video {
+  id         Int                 @id @default(autoincrement())
+  title   String
+  description     String  @db.Text
+  cloudflareId     String @db.VarChar(500) @unique
+  imageURL  String?  @db.VarChar(600)
+  createdAt DateTime @default(now())
+  duration Int
+  readyToStream Boolean @default(false)
+  categories CategoriesOnVideos[]
+}
+
+model Category {
+  id    Int                 @id @default(autoincrement())
+  name  String  @unique
+  videos CategoriesOnVideos[]
+}
+
+model CategoriesOnVideos {
+  video       Video     @relation(fields: [videoId], references: [id])
+  videoId     Int // relation scalar field (used in the `@relation` attribute above)
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int // relation scalar field (used in the `@relation` attribute above)
+  
+  @@id([videoId, categoryId])
+}
