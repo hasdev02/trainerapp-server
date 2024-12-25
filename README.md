@@ -1,23 +1,27 @@
 # trainerapp-server
-API en Express (Node.js) para aplicación de entrenador personal
+API in Express (Node.js) for Personal Trainer Application
+This REST API was designed a year ago to be consumed by a web/mobile application. It is built with Express.js, uses JWT for authentication, and employs Prisma as the ORM for the database (MariaDB).
 
-Esta API REST la diseñe hace un año para consumirla desde una aplicación web/movil. Esta hecha en Express.js, uso JWT para la autenticación y Prisma como ORM para la BBDD (MariaDB)
+This application allows a personal trainer to manage their clients' workouts, diets, and subscriptions. All endpoints are implemented, and the application was fully operational.
 
-Esta aplicación ofrece a un entrenador personal gestionar los entrenamientos, dietas y suscripciones de sus clientes. Estan implementados todos los endspoints y la aplicación llego a estar activa.
+It also includes endpoints for the administration panel, where the admin can edit user subscriptions, upload and update video information, modify users' training or diet plans, create video categories, and more.
 
-Tambien contiene los endspoints para el panel de administración donde el administrador puede editar las suscripciones de los usuarios, subir y editar información de los videos, editar el entrenamiento o dieta de los usuarios, crear categorías de videos...
+To launch the server you will need to create accounts on Cloudflare and Cloudinary and provide the tokens in the environment variables.
 
+Development
 
-Para lanzar el servidor se necesita crear una cuenta en Cloudflare y en Cloudinary y dar los tokens en las variables de entorno.
-
-Para desarrollo usar npm run dev, se usa esbuild en vez de tsc para desarrollo por que compila 100x mas rápido que tsc
+For development, use the following command:
 ```
 npm run dev
 ```
 
-Para producción se recomienda compilar usando tsc que esta configurando en el script build.
+This setup uses esbuild instead of tsc for development, as it compiles 100x faster than tsc.
+
+Production
+
+For production, it is recommended to compile the project using tsc, which is configured in the build script:
 ```
 npm run build
 ```
 
-El servidor escuchará en el puerto indicado en las [variables de entorno](.env.example)
+The server will listen on the port specified in the [environment variables](.env.example)
